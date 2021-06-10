@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  usermgt-mysql:
+    container_name: usermgt-mysql
+    build:
+      context: .
+      dockerfile: Dockerfile-mysql
+    restart: always
+
+  usermgt-app:
+    container_name: usermgt-app
+    build:
+      context: .
+      dockerfile: Dockerfile-app
+    depends_on:
+      - usermgt-mysql
+    ports:
+      - "5003:5000"
+    restart: always
